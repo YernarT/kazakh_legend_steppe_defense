@@ -1,0 +1,62 @@
+{
+    "name": "kazakh_lengend_steppe_defense_client",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Kazakh Legend Steppe Defense [哈萨克传奇之草原守卫战] 客户端",
+    "author": "https://github.com/YernarT",
+    "main": "main.js",
+    "license": "MIT",
+    "scripts": {
+        "dev": "node scripts/dev-server.js",
+        "build": "node scripts/build.js && electron-builder",
+        "build:win": "node scripts/build.js && electron-builder --win",
+        "build:mac": "node scripts/build.js && electron-builder --mac",
+        "build:linux": "node scripts/build.js && electron-builder --linux"
+    },
+    "build": {
+        "appId": "com.kazakh_lengend_steppe_defense.client",
+        "productName": "Kazakh Legend Steppe Defense",
+        "win": {
+            "icon": "public/icon.png",
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ],
+            "sign": false
+        },
+        "nsis": {
+            "oneClick": false,
+            "perMachine": true,
+            "allowToChangeInstallationDirectory": true
+        }
+    },
+    "dependencies": {
+        "@icon-park/vue-next": "^1.4.2",
+        "@vueuse/core": "^13.3.0",
+        "electron": "^34.5.8",
+        "pinia": "^3.0.3",
+        "socket.io-client": "^4.8.1",
+        "vue": "^3.5.16",
+        "vue-hooks-plus": "^2.4.0",
+        "vue-i18n": "^11.1.5",
+        "vue-router": "^4.5.1"
+    },
+    "devDependencies": {
+        "@types/node": "^24.0.0",
+        "@vitejs/plugin-vue": "^5.2.4",
+        "autoprefixer": "^10.4.21",
+        "chalk": "^5.4.1",
+        "chokidar": "^4.0.3",
+        "electron-builder": "^26.0.12",
+        "nodemon": "^3.1.10",
+        "path": "^0.12.7",
+        "sass": "^1.89.2",
+        "typescript": "^5.8.3",
+        "vite": "^6.3.5",
+        "vue-tsc": "^2.2.10"
+    }
+}
