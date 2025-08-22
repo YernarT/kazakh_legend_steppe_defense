@@ -1,0 +1,26 @@
+:root {
+  /* 色彩模式 */
+  color-scheme: DARK;
+
+  /* 调色盘 */
+  --c-primary: #1677ff;
+  --c-success: #52c41a;
+  --c-warning: #faad14;
+  --c-error: #ff4d4f;
+
+  /* 排版 */
+  --c-text: #eeeeee;
+  --c-text-secondary: #cccccc;
+
+  /* Shape */
+  --border-radius-small: 2px;
+  --border-radius: 6px;
+  --c-border: #1677ff;
+
+  /* 过渡贝塞尔曲线 */
+  --transition-attribute: all;
+  --transition-duration: 340ms;
+  --transition-bezier: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: var(--transition-attribute) var(--transition-duration)
+    var(--transition-bezier);
+}
