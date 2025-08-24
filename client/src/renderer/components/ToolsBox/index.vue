@@ -11,30 +11,50 @@
       </div>
 
       <!-- 植物列表 -->
-       <div class="plant-list">
-
-       </div>
+      <div class="plant-list">
+        <PlantCard v-for="plant in plants" :key="plant.code" :plant="plant" />
+      </div>
     </div>
     <!-- 铲子 之类的 -->
-    <div class="additional"></div>
+    <div class="additional">
+      <div class="shovel-block">
+        <img
+          class="shovel-img"
+          src="@/assets/images/tools/shovel-1.svg"
+          alt="Shovel"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// Types
+import type { I_Plant } from "@/typing/plant";
+// Components
+import PlantCard from "@/components/ToolsBox/PlantCard.vue";
+
+defineProps<{ plants: I_Plant[] }>();
+</script>
 
 <style scoped lang="scss">
 .tools-box {
-  @include flex;
+  width: 100%;
+  @include flex($alignItems: center);
 
   .standart {
     border: 4px solid rgb(152, 70, 23);
     border-radius: var(--border-radius);
     background-color: rgb(106, 49, 19);
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
+    overflow: hidden;
     @include flex;
 
     .sun-block {
+      height: 175px;
       padding: 8px 16px;
+      border-inline-end: 4px solid rgb(152, 70, 23);
+      @include flexCenter($direction: column, $gap: 12px);
 
       .sun-box {
         width: 50px;
@@ -49,11 +69,11 @@
           width: 40px;
           height: 37px;
           object-fit: cover;
+          filter: drop-shadow(0 0 4px rgba(255, 247, 0, 0.8));
         }
       }
 
       .score-box {
-        margin-block-start: 8px;
         color: rgb(51, 37, 9);
         font-weight: bold;
         padding: 2px 6px;
@@ -63,9 +83,25 @@
         @include flexCenter;
       }
     }
+
+    .plant-list {
+      /* --c-scrollbar: rgb(152, 70, 23);
+      --c-scrollbar-bg: rgb(99, 37, 4); */
+
+      padding: 8px;
+      overflow: auto;
+      @include useScroll($type: none);
+      @include flex($gap: 4px);
+    }
   }
 
   .additional {
+    flex-shrink: 0;
+    margin-inline-start: 8px;
+    border: 8px solid rgb(152, 70, 23);
+    border-radius: var(--border-radius);
+    background-color: rgb(106, 49, 19);
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
     @include flexCenter;
   }
 }

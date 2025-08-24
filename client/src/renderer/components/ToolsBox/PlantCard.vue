@@ -1,9 +1,11 @@
 <template>
   <div class="plant-card">
-    <img class="plant-card-img" :src="plant.image" :alt="plant.name" />
+    <div class="img-block">
+      <img class="plant-card-img" :src="plant.images.idle" :alt="plant.name" />
+    </div>
 
     <div class="cost-block">
-      <div class="cost">100</div>
+      <div class="cost">{{ plant.cost }}</div>
       <img class="sun-img" src="@/assets/images/sun.png" alt="Sun" />
     </div>
   </div>
@@ -18,26 +20,34 @@ const props = defineProps<{ plant: I_Plant }>();
 
 <style scoped lang="scss">
 .plant-card {
-  width: 100px;
-  height: 220px;
-  background-color: #eeeeee;
+  background-color: #fff;
   border-radius: var(--border-radius-small);
-  border: 2px solid #eeeeee;
-  border-block-start-width: 6px;
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.4);
   @include flex($direction: column);
 
-  .plant-card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .img-block {
+    width: 108px;
+    height: 128px;
+    padding: 4px;
+    border-radius: var(--border-radius-small);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    @include flexCenter;
+
+    .plant-card-img {
+      max-width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: var(--border-radius-small);
+    }
   }
 
   .cost-block {
+    width: 100%;
     padding: 2px 6px;
-    @include flex($justifyContent: center, $alignItems: center, $gap: 8px);
+    @include flexCenter;
 
     .cost {
+      color: rgb(51, 37, 9);
       font-weight: bold;
     }
 
