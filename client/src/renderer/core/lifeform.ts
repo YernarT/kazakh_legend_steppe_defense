@@ -1,4 +1,4 @@
-import type { I_Lifeform } from "@/typing/lifeform";
+import type { I_Lifeform, I_LifeformAttributes } from "@/typing/lifeform";
 
 export abstract class Lifeform implements I_Lifeform {
   health: number;
@@ -8,7 +8,7 @@ export abstract class Lifeform implements I_Lifeform {
   attackSpeed: number;
   moveSpeed: number;
 
-  constructor(input: I_Lifeform) {
+  constructor(input: I_LifeformAttributes) {
     this.health = input.health;
     this.maxHealth = input.maxHealth;
     this.baseAttack = input.baseAttack;
@@ -28,5 +28,3 @@ export abstract class Lifeform implements I_Lifeform {
   abstract getAttack(): number;
   abstract getArmor(): number;
 }
-
-// const lifeform = new Lifeform({health: 100, maxHealth: 1000, base});
