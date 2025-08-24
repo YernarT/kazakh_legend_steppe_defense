@@ -78,25 +78,25 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: 0;
+    border-radius: var(--border-radius-small);
     @if ($onlyOnHover == 1) {
       background: transparent;
     }
     @if ($onlyOnHover == 0) {
-      background: #fff;
+      background: var(--c-scrollbar, #fff);
     }
   }
 
   &:hover::-webkit-scrollbar-thumb {
-    background: #fff;
+    background: var(--c-scrollbar, #fff);
   }
 
   &::-webkit-scrollbar-track {
-    border-radius: 0;
+    border-radius: var(--border-radius-small);
   }
 
   &:hover::-webkit-scrollbar-track {
-    background: #000;
+    background: var(--c-scrollbar-bg, #000);
   }
 }
 
