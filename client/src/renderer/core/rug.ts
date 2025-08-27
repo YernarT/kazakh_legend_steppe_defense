@@ -1,35 +1,12 @@
 // Types
 import type { I_LifeformAttributes } from "@/typing/lifeform";
-import type { I_Plant } from "@/typing/plant";
+import type { I_PlantAttributes } from "@/typing/plant";
 // Core
-import { Lifeform } from "@/core/lifeform";
+import { Plant } from "@/core/plant";
 
-class Rug extends Lifeform implements I_Plant {
-  name!: I_Plant["name"];
-  code!: I_Plant["code"];
-  cost!: I_Plant["cost"];
-  images!: I_Plant["images"];
-  description!: I_Plant["description"];
-  ready!: I_Plant["ready"];
-
-  constructor(input: I_LifeformAttributes) {
+class Rug extends Plant {
+  constructor(input: I_LifeformAttributes & I_PlantAttributes) {
     super(input);
-    this.ready = (async () => this.initAttributes())();
-  }
-
-  async initAttributes() {
-    this.code = "rug";
-    this.name = "Кілем";
-    this.cost = 175;
-    this.description = "哈萨克传统家具, 鸿门宴必备";
-    this.images = {
-      idle: (await import("@/assets/images/plants/rug/idle.png")).default,
-      walk: null,
-      attack: null,
-      death: null,
-    };
-
-    return this;
   }
 
   getAttack(): number {
@@ -42,13 +19,23 @@ class Rug extends Lifeform implements I_Plant {
 }
 
 function getRug() {
-  const defaultInput: I_LifeformAttributes = {
+  const defaultInput: I_LifeformAttributes & I_PlantAttributes = {
     health: 100,
     maxHealth: 100,
     baseAttack: 100,
     baseArmor: 10,
     attackSpeed: 1,
     moveSpeed: 0,
+    code: "rug",
+    name: "Кілем",
+    cost: 175,
+    description: "哈萨克传统家具, 鸿门宴必备",
+    images: {
+      idle: "@/assets/images/plants/rug/idle.png",
+      walk: null,
+      attack: null,
+      death: null,
+    },
   };
 
   return new Rug(defaultInput);

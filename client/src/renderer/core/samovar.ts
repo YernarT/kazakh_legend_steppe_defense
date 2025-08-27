@@ -1,35 +1,12 @@
 // Types
 import type { I_LifeformAttributes } from "@/typing/lifeform";
-import type { I_Plant } from "@/typing/plant";
+import type { I_PlantAttributes } from "@/typing/plant";
 // Core
-import { Lifeform } from "@/core/lifeform";
+import { Plant } from "@/core/plant";
 
-class Samovar extends Lifeform implements I_Plant {
-  name!: I_Plant["name"];
-  code!: I_Plant["code"];
-  cost!: I_Plant["cost"];
-  images!: I_Plant["images"];
-  description!: I_Plant["description"];
-  ready!: I_Plant["ready"];
-
-  constructor(input: I_LifeformAttributes) {
+class Samovar extends Plant {
+  constructor(input: I_LifeformAttributes & I_PlantAttributes) {
     super(input);
-    this.ready = (async () => this.initAttributes())();
-  }
-
-  async initAttributes() {
-    this.code = "samovar";
-    this.name = "Самаурын";
-    this.cost = 200;
-    this.description = "哈萨克传统茶具, 提供持续的恢复效果";
-    this.images = {
-      idle: (await import("@/assets/images/plants/samovar/idle.webp")).default,
-      walk: null,
-      attack: null,
-      death: null,
-    };
-
-    return this;
   }
 
   getAttack(): number {
@@ -42,13 +19,23 @@ class Samovar extends Lifeform implements I_Plant {
 }
 
 function getSamovar() {
-  const defaultInput: I_LifeformAttributes = {
+  const defaultInput: I_LifeformAttributes & I_PlantAttributes = {
     health: 100,
     maxHealth: 100,
     baseAttack: 100,
     baseArmor: 10,
     attackSpeed: 1,
     moveSpeed: 0,
+    code: "samovar",
+    name: "Самаурын",
+    cost: 200,
+    description: "哈萨克传统茶具, 提供持续的恢复效果",
+    images: {
+      idle: "@/assets/images/plants/samovar/idle.webp",
+      walk: null,
+      attack: null,
+      death: null,
+    },
   };
 
   return new Samovar(defaultInput);

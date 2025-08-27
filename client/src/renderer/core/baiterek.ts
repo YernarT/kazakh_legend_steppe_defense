@@ -1,35 +1,12 @@
 // Types
 import type { I_LifeformAttributes } from "@/typing/lifeform";
-import type { I_Plant } from "@/typing/plant";
+import type { I_PlantAttributes } from "@/typing/plant";
 // Core
-import { Lifeform } from "@/core/lifeform";
+import { Plant } from "@/core/plant";
 
-class Baiterek extends Lifeform implements I_Plant {
-  name!: I_Plant["name"];
-  code!: I_Plant["code"];
-  cost!: I_Plant["cost"];
-  images!: I_Plant["images"];
-  description!: I_Plant["description"];
-  ready!: I_Plant["ready"];
-
-  constructor(input: I_LifeformAttributes) {
+class Baiterek extends Plant {
+  constructor(input: I_LifeformAttributes & I_PlantAttributes) {
     super(input);
-    this.ready = (async () => this.initAttributes())();
-  }
-
-  async initAttributes() {
-    this.code = "baiterek";
-    this.name = "Бәйтерек";
-    this.cost = 100;
-    this.description = "哈萨克传说中的生命之树，代表生命于希望";
-    this.images = {
-      idle: (await import("@/assets/images/plants/baiterek/idle.png")).default,
-      walk: null,
-      attack: null,
-      death: null,
-    };
-
-    return this;
   }
 
   getAttack(): number {
@@ -42,13 +19,23 @@ class Baiterek extends Lifeform implements I_Plant {
 }
 
 function getBaiterek() {
-  const defaultInput: I_LifeformAttributes = {
+  const defaultInput: I_LifeformAttributes & I_PlantAttributes = {
     health: 100,
     maxHealth: 100,
     baseAttack: 100,
     baseArmor: 10,
     attackSpeed: 1,
     moveSpeed: 0,
+    code: "baiterek",
+    name: "Бәйтерек",
+    cost: 100,
+    description: "哈萨克传说中的生命之树，代表生命于希望",
+    images: {
+      idle: "@/assets/images/plants/baiterek/idle.png",
+      walk: null,
+      attack: null,
+      death: null,
+    },
   };
 
   return new Baiterek(defaultInput);
