@@ -3,6 +3,8 @@ import type { I_LifeformAttributes } from "@/typing/lifeform";
 import type { I_PlantAttributes } from "@/typing/plant";
 // Core
 import { Plant } from "@/core/plant";
+// Assets
+import idle from "@/assets/images/plants/dombra/idle.png";
 
 class Dombra extends Plant {
   constructor(input: I_LifeformAttributes & I_PlantAttributes) {
@@ -31,7 +33,7 @@ function getDombra() {
     cost: 100,
     description: "哈萨克传统乐器, 产生音波攻击敌人",
     images: {
-      idle: "@/assets/images/plants/dombra/idle.png",
+      idle,
       walk: null,
       attack: null,
       death: null,

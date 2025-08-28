@@ -3,6 +3,8 @@ import type { I_LifeformAttributes } from "@/typing/lifeform";
 import type { I_PlantAttributes } from "@/typing/plant";
 // Core
 import { Plant } from "@/core/plant";
+// Assets
+import idle from "@/assets/images/plants/eagle/idle.png";
 
 class Eagle extends Plant {
   constructor(input: I_LifeformAttributes & I_PlantAttributes) {
@@ -31,7 +33,7 @@ function getEagle() {
     cost: 150,
     description: "哈萨克传说中的鹰, 精准打击敌人",
     images: {
-      idle: "@/assets/images/plants/eagle/idle.png",
+      idle,
       walk: null,
       attack: null,
       death: null,

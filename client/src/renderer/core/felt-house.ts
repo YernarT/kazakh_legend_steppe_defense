@@ -3,6 +3,8 @@ import type { I_LifeformAttributes } from "@/typing/lifeform";
 import type { I_PlantAttributes } from "@/typing/plant";
 // Core
 import { Plant } from "@/core/plant";
+// Assets
+import idle from "@/assets/images/plants/felt-house/idle.jpg";
 
 class FeltHouse extends Plant {
   constructor(input: I_LifeformAttributes & I_PlantAttributes) {
@@ -31,7 +33,7 @@ function getFeltHouse() {
     cost: 75,
     description: "哈萨克传统建筑, 提供固若金汤的防御",
     images: {
-      idle: "@/assets/images/plants/felt-house/idle.jpg",
+      idle,
       walk: null,
       attack: null,
       death: null,

@@ -3,6 +3,8 @@ import type { I_LifeformAttributes } from "@/typing/lifeform";
 import type { I_PlantAttributes } from "@/typing/plant";
 // Core
 import { Plant } from "@/core/plant";
+// Assets
+import idle from "@/assets/images/plants/rug/idle.png";
 
 class Rug extends Plant {
   constructor(input: I_LifeformAttributes & I_PlantAttributes) {
@@ -31,7 +33,7 @@ function getRug() {
     cost: 175,
     description: "哈萨克传统家具, 鸿门宴必备",
     images: {
-      idle: "@/assets/images/plants/rug/idle.png",
+      idle,
       walk: null,
       attack: null,
       death: null,

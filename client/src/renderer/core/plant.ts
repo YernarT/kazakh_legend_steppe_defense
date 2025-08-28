@@ -23,18 +23,10 @@ export abstract class Plant extends Lifeform implements I_Plant {
     this.cost = input.cost;
     this.description = input.description;
     this.images = {
-      idle: input.images.idle
-        ? (await import(input.images.idle)).default
-        : null,
-      walk: input.images.walk
-        ? (await import(input.images.walk)).default
-        : null,
-      attack: input.images.attack
-        ? (await import(input.images.attack)).default
-        : null,
-      death: input.images.death
-        ? (await import(input.images.death)).default
-        : null,
+      idle: input.images.idle ?? null,
+      walk: input.images.walk ?? null,
+      attack: input.images.attack ?? null,
+      death: input.images.death ?? null,
     };
 
     return this;

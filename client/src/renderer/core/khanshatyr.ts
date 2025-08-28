@@ -3,6 +3,8 @@ import type { I_LifeformAttributes } from "@/typing/lifeform";
 import type { I_PlantAttributes } from "@/typing/plant";
 // Core
 import { Plant } from "@/core/plant";
+// Assets
+import idle from "@/assets/images/plants/khanshatyr/idle.jpg";
 
 class Khanshatyr extends Plant {
   constructor(input: I_LifeformAttributes & I_PlantAttributes) {
@@ -31,7 +33,7 @@ function getKhanshatyr() {
     cost: 300,
     description: "可汗之帐, 集攻防于一体",
     images: {
-      idle: "@/assets/images/plants/khanshatyr/idle.jpg",
+      idle,
       walk: null,
       attack: null,
       death: null,
