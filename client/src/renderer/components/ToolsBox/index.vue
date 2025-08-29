@@ -12,7 +12,12 @@
 
       <!-- 植物列表 -->
       <div class="plant-list">
-        <PlantCard v-for="plant in plants" :key="plant.code" :plant="plant" />
+        <PlantCard
+          v-for="plant in plantStore.plants"
+          :key="plant.code"
+          :plant="plant"
+          @click="handleClickPlantCard"
+        />
       </div>
     </div>
     <!-- 铲子 之类的 -->
@@ -26,15 +31,41 @@
       </div>
     </div>
   </div>
+
+  <SelectedTool />
 </template>
 
 <script setup lang="ts">
 // Types
 import type { I_Plant } from "@/typing/plant";
+// Vue
+import { onMounted } from "vue";
+// Store
+import { usePlantStore } from "@/store/usePlantStore";
 // Components
 import PlantCard from "@/components/ToolsBox/PlantCard.vue";
+import SelectedTool from "@/components/ToolsBox/SelectedTool.vue";
 
-defineProps<{ plants: I_Plant[] }>();
+const plantStore = usePlantStore();
+
+async function loadPlants() {
+  await plantStore.addPlant("baiterek");
+  await plantStore.addPlant("khanshatyr");
+  await plantStore.addPlant("dombra");
+  await plantStore.addPlant("kobyz");
+  await plantStore.addPlant("felt-house");
+  await plantStore.addPlant("rug");
+  await plantStore.addPlant("samovar");
+  await plantStore.addPlant("eagle");
+}
+
+onMounted(() => {
+  loadPlants();
+});
+
+function handleClickPlantCard(plant: I_Plant) {
+  plantStore.selectedTool = plant;
+}
 </script>
 
 <style scoped lang="scss">
