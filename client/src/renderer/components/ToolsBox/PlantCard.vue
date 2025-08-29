@@ -1,5 +1,5 @@
 <template>
-  <div class="plant-card">
+  <div class="plant-card" @click="$emit('click', plant)">
     <div class="img-block">
       <img class="plant-card-img" :src="plant.images.idle" :alt="plant.name" />
     </div>
@@ -15,7 +15,11 @@
 // Types
 import type { I_Plant } from "@/typing/plant";
 
-const props = defineProps<{ plant: I_Plant }>();
+defineProps<{ plant: I_Plant }>();
+
+defineEmits<{
+  (eventName: "click", plant: I_Plant): void;
+}>();
 </script>
 
 <style scoped lang="scss">
