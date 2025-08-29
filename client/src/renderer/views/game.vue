@@ -1,6 +1,6 @@
 <template>
   <main class="game-view">
-    <ToolsBox :plants="plants" />
+    <ToolsBox />
     <div class="game-area">
       <img
         data-bg-img
@@ -18,44 +18,12 @@
 import { onMounted, ref } from "vue";
 // Types
 import type { I_Plant } from "@/typing/plant";
-// Core
-import {
-  getBaiterek,
-  getKhanshatyr,
-  getDombra,
-  getKobyz,
-  getFeltHouse,
-  getRug,
-  getSamovar,
-  getEagle,
-} from "@/core";
 // Hooks
 import { useCanvas } from "@/core/canvas/useCanvas";
 // Components
 import ToolsBox from "@/components/ToolsBox/index.vue";
-// Assets
-import Assets_Background_1 from "@/assets/images/background-1.svg";
-
-const plants = ref<I_Plant[]>([]);
 
 const { Ref_Canvas, ctx } = useCanvas();
-
-async function loadPlants() {
-  plants.value = [
-    await getBaiterek().ready,
-    await getKhanshatyr().ready,
-    await getDombra().ready,
-    await getKobyz().ready,
-    await getFeltHouse().ready,
-    await getRug().ready,
-    await getSamovar().ready,
-    await getEagle().ready,
-  ];
-}
-
-onMounted(() => {
-  loadPlants();
-});
 </script>
 
 <style scoped lang="scss">
