@@ -1,4 +1,8 @@
+// Vue
 import { ref, useTemplateRef, onMounted, nextTick } from "vue";
+// Store
+import { usePlantStore } from "@/store/usePlantStore";
+// Hooks
 import { useDebounceFn, useEventListener } from "vue-hooks-plus";
 
 export function useCanvas() {
@@ -70,6 +74,44 @@ export function useCanvas() {
   });
   useEventListener("resize", renderCanvas);
   onMounted(renderCanvas);
+
+  const plantStore = usePlantStore();
+
+  function handleClick(e: MouseEvent) {
+    if (!plantStore.selectedTool) return;
+    if (!Ref_Canvas.value) return;
+
+    const canvasRect = Ref_Canvas.value.getBoundingClientRect();
+
+    // 检查点击是否在 canvas 范围内
+    const isWithinCanvas =
+      e.clientX >= canvasRect.left &&
+      e.clientX <= canvasRect.right &&
+      e.clientY >= canvasRect.top &&
+      e.clientY <= canvasRect.bottom;
+
+    if (isWithinCanvas) {
+      // 计算相对于 canvas 的坐标
+      const relativeX = e.clientX - canvasRect.left;
+      const relativeY = e.clientY - canvasRect.top;
+
+      // 计算网格单元格尺寸（与 drawCell 保持一致）
+      const cellWidth = Ref_Canvas.value.width / MAP_COLS;
+      const cellHeight = Ref_Canvas.value.height / MAP_ROWS;
+
+      // 计算点击的网格位置
+      const col = Math.floor(relativeX / cellWidth);
+      const row = Math.floor(relativeY / cellHeight);
+
+      // 确保索引在有效范围内
+      if (col >= 0 && col < MAP_COLS && row >= 0 && row < MAP_ROWS) {
+        console.log(`点击了草坪: 行 ${row + 1}, 列 ${col + 1}`);
+        console.log("选择的工具是: ", plantStore.selectedTool);
+      }
+    }
+  }
+
+  useEventListener("click", handleClick);
 
   return {
     Ref_Canvas,
