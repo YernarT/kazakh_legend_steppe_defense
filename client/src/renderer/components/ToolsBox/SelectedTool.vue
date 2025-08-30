@@ -18,10 +18,15 @@
 // Store
 import { usePlantStore } from "@/store/usePlantStore";
 // Hooks
-import { useMouse } from "vue-hooks-plus";
+import { useMouse, useEventListener } from "vue-hooks-plus";
 
 const plantStore = usePlantStore();
 const mousePosition = useMouse();
+
+useEventListener("contextmenu", (e) => {
+  e.preventDefault();
+  plantStore.selectedTool = null;
+});
 </script>
 
 <style scoped lang="scss">
