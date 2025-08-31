@@ -1,17 +1,23 @@
 // Vue
-import { ref, useTemplateRef, onMounted, nextTick } from "vue";
+import { ref, computed, useTemplateRef, onMounted, nextTick } from "vue";
 // Store
 import { usePlantStore } from "@/store/usePlantStore";
 // Hooks
 import { useDebounceFn, useEventListener } from "vue-hooks-plus";
+// Core
+import { Plant } from "@/core/plant";
+import { putPlant } from "@/core/canvas/putPlant";
 
 export function useCanvas() {
   const Ref_Canvas = useTemplateRef<HTMLCanvasElement>("Ref_Canvas");
   const ctx = ref<CanvasRenderingContext2D | null>(null);
   const bgImgElement = ref<HTMLImageElement | null>(null);
+  // 草坪面积
   const MAP_ROWS = 5;
   const MAP_COLS = 9;
-
+  // 草坪尺寸
+  const cellWidth = computed(() => Ref_Canvas.value!.width / MAP_COLS);
+  const cellHeight = computed(() => Ref_Canvas.value!.height / MAP_ROWS);
   // 草坪区域占背景的比例（根据原图测量）
   const lawnRatio = {
     x: 0.18, // 草坪左边界比例
@@ -51,17 +57,14 @@ export function useCanvas() {
   }
 
   function drawCell() {
-    const cellWidth = Ref_Canvas.value!.width / MAP_COLS;
-    const cellHeight = Ref_Canvas.value!.height / MAP_ROWS;
-
     ctx.value!.strokeStyle = "red";
     for (let row = 0; row < MAP_ROWS; row++) {
       for (let col = 0; col < MAP_COLS; col++) {
         ctx.value!.strokeRect(
-          col * cellWidth,
-          row * cellHeight,
-          cellWidth,
-          cellHeight
+          col * cellWidth.value,
+          row * cellHeight.value,
+          cellWidth.value,
+          cellHeight.value
         );
       }
     }
@@ -95,18 +98,22 @@ export function useCanvas() {
       const relativeX = e.clientX - canvasRect.left;
       const relativeY = e.clientY - canvasRect.top;
 
-      // 计算网格单元格尺寸（与 drawCell 保持一致）
-      const cellWidth = Ref_Canvas.value.width / MAP_COLS;
-      const cellHeight = Ref_Canvas.value.height / MAP_ROWS;
-
       // 计算点击的网格位置
-      const col = Math.floor(relativeX / cellWidth);
-      const row = Math.floor(relativeY / cellHeight);
+      const col = Math.floor(relativeX / cellWidth.value);
+      const row = Math.floor(relativeY / cellHeight.value);
 
       // 确保索引在有效范围内
       if (col >= 0 && col < MAP_COLS && row >= 0 && row < MAP_ROWS) {
-        console.log(`点击了草坪: 行 ${row + 1}, 列 ${col + 1}`);
-        console.log("选择的工具是: ", plantStore.selectedTool);
+        if (plantStore.selectedTool instanceof Plant) {
+          putPlant({
+            ctx: ctx.value!,
+            plant: plantStore.selectedTool,
+            row,
+            col,
+            cellWidth: cellWidth.value,
+            cellHeight: cellHeight.value,
+          });
+        }
       }
     }
   }
