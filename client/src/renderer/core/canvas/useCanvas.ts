@@ -80,7 +80,7 @@ export function useCanvas() {
 
   const plantStore = usePlantStore();
 
-  function handleClick(e: MouseEvent) {
+  async function handleClick(e: MouseEvent) {
     if (!plantStore.selectedTool) return;
     if (!Ref_Canvas.value) return;
 
@@ -105,7 +105,7 @@ export function useCanvas() {
       // 确保索引在有效范围内
       if (col >= 0 && col < MAP_COLS && row >= 0 && row < MAP_ROWS) {
         if (plantStore.selectedTool instanceof Plant) {
-          putPlant({
+          await putPlant({
             ctx: ctx.value!,
             plant: plantStore.selectedTool,
             row,
@@ -113,6 +113,8 @@ export function useCanvas() {
             cellWidth: cellWidth.value,
             cellHeight: cellHeight.value,
           });
+          plantStore.lawn[row][col] = plantStore.selectedTool;
+          plantStore.selectedTool = null;
         }
       }
     }

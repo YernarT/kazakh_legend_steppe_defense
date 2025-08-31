@@ -16,25 +16,28 @@ export function putPlant({
   col,
   cellWidth,
   cellHeight,
-}: I_PutPlantOptions) {
-  fetch(plant.images.idle)
-    .then((response) => response.blob())
-    .then((blob) => createImageBitmap(blob))
-    .then((imageBitmap) => {
-      // 对图片进行缩放, 不超过单元格尺寸
-      const scale = Math.min(
-        cellWidth / imageBitmap.width,
-        cellHeight / imageBitmap.height,
-        1
-      );
-      const width = imageBitmap.width * scale;
-      const height = imageBitmap.height * scale;
-      ctx.drawImage(
-        imageBitmap,
-        col * cellWidth + (cellWidth - width) / 2,
-        row * cellHeight + (cellHeight - height) / 2,
-        width,
-        height
-      );
-    });
+}: I_PutPlantOptions): Promise<void> {
+  return new Promise((resolve) => {
+    fetch(plant.images.idle)
+      .then((response) => response.blob())
+      .then((blob) => createImageBitmap(blob))
+      .then((imageBitmap) => {
+        // 对图片进行缩放, 不超过单元格尺寸
+        const scale = Math.min(
+          cellWidth / imageBitmap.width,
+          cellHeight / imageBitmap.height,
+          1
+        );
+        const width = imageBitmap.width * scale;
+        const height = imageBitmap.height * scale;
+        ctx.drawImage(
+          imageBitmap,
+          col * cellWidth + (cellWidth - width) / 2,
+          row * cellHeight + (cellHeight - height) / 2,
+          width,
+          height
+        );
+        resolve();
+      });
+  });
 }
