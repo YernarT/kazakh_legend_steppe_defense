@@ -34,7 +34,11 @@ useEventListener("contextmenu", (e) => {
   width: 108px;
   height: 128px;
   pointer-events: none;
-  @include positioned($position: fixed, $top: 0, $left: 0);
+  @include positioned(
+    $position: fixed,
+    $top: calc(-128px / 2),
+    $left: calc(-108px / 2)
+  );
 
   &-img {
     max-width: 100%;
