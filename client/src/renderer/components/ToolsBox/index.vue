@@ -7,7 +7,7 @@
         <div class="sun-box">
           <img class="sun-img" src="@/assets/images/sun.png" alt="Sun" />
         </div>
-        <div class="score-box">650</div>
+        <div class="score-box">{{ sceneStore.sun }}</div>
       </div>
 
       <!-- 植物列表 -->
@@ -41,11 +41,13 @@ import type { I_Plant } from "@/typing/plant";
 // Vue
 import { onMounted } from "vue";
 // Store
+import { useSceneStore } from "@/store/useSceneStore";
 import { usePlantStore } from "@/store/usePlantStore";
 // Components
 import PlantCard from "@/components/ToolsBox/PlantCard.vue";
 import SelectedTool from "@/components/ToolsBox/SelectedTool.vue";
 
+const sceneStore = useSceneStore();
 const plantStore = usePlantStore();
 
 async function loadPlants() {
