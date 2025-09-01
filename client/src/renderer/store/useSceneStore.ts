@@ -1,9 +1,14 @@
+// Types
+import type { T_GameStatus } from "@/typing/game-status";
 // Pinia
 import { defineStore } from "pinia";
+// Constants
+import { GAME_STATUS } from "@/constants/game-status";
 
 interface I_SceneStoreState {
   isDay: boolean;
   sun: number;
+  gameStatus: T_GameStatus;
 }
 
 interface I_SceneStoreActions {}
@@ -20,6 +25,7 @@ export const useSceneStore = defineStore<
   state: () => ({
     isDay: true,
     sun: initialSun,
+    gameStatus: GAME_STATUS.playing,
   }),
 
   getters: {},
