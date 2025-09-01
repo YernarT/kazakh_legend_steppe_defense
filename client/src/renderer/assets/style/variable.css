@@ -23,4 +23,36 @@
   --transition-bezier: cubic-bezier(0.4, 0, 0.2, 1);
   --transition: var(--transition-attribute) var(--transition-duration)
     var(--transition-bezier);
+
+  /* 全局变量 */
+  --canvas-width: 0;
+  --canvas-height: 0;
+}
+
+/* 全局动画 */
+@keyframes dropSun {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(var(--canvas-height));
+  }
+}
+
+@keyframes sunBlink {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.666;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.666;
+  }
+  100% {
+    opacity: 1;
+  }
 }

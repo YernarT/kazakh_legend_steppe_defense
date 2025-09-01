@@ -49,6 +49,16 @@ export function useCanvas() {
       Ref_Canvas.value!.style.top =
         bgImgElement.value!.height * lawnRatio.y + "px";
       Ref_Canvas.value!.style.border = "4px dashed red";
+
+      // 设置 CSS 变量
+      document.documentElement.style.setProperty(
+        "--canvas-width",
+        `${Ref_Canvas.value!.width}px`
+      );
+      document.documentElement.style.setProperty(
+        "--canvas-height",
+        `${Ref_Canvas.value!.height}px`
+      );
     }
 
     bgImgElement.value.complete
