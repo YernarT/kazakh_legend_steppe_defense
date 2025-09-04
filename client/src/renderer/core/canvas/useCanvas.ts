@@ -59,6 +59,14 @@ export function useCanvas() {
         "--canvas-height",
         `${Ref_Canvas.value!.height}px`
       );
+      document.documentElement.style.setProperty(
+        "--cell-width",
+        `${cellWidth.value}px`
+      );
+      document.documentElement.style.setProperty(
+        "--cell-height",
+        `${cellHeight.value}px`
+      );
     }
 
     bgImgElement.value.complete
