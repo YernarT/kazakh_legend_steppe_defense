@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 // Vue
-import { watchEffect } from "vue";
+import { computed, watchEffect } from "vue";
 // Store
 import { useSceneStore } from "@/store/useSceneStore";
 // Core
@@ -30,7 +30,14 @@ import { GAME_STATUS } from "@/constants/game-status";
 import { random } from "@/utils/random";
 
 const sceneStore = useSceneStore();
+
 const { Ref_Canvas, ctx } = useCanvas();
+
+let widthOfCell = parseFloat(
+  document.documentElement.style.getPropertyValue("--cell-width")
+);
+
+const startOfCanvas = computed(() => parseFloat(Ref_Canvas.value!.style.left));
 
 function scheduleDropSun() {
   setTimeout(() => {
@@ -42,8 +49,18 @@ function scheduleDropSun() {
 
     if (!isCanvasReady) scheduleDropSun();
 
-    const randomX = random(80, Ref_Canvas.value!.width - 80);
-    const randomY = random(0, 20);
+    widthOfCell = !Number.isNaN(widthOfCell)
+      ? widthOfCell
+      : (widthOfCell = parseFloat(
+          document.documentElement.style.getPropertyValue("--cell-width")
+        ));
+
+    const randomX = random(
+      startOfCanvas.value + widthOfCell,
+      startOfCanvas.value + widthOfCell * 8
+    );
+    const randomY = 0;
+    console.log({ randomX, randomY });
     dropSun({ ctx: ctx.value!, x: randomX, y: randomY });
     scheduleDropSun();
   }, random(2, 5) * 1000);
