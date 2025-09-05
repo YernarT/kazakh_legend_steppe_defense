@@ -60,7 +60,7 @@ function scheduleDropSun() {
       startOfCanvas.value + widthOfCell * 8
     );
     const randomY = 0;
-    console.log({ randomX, randomY });
+
     dropSun({ ctx: ctx.value!, x: randomX, y: randomY });
     scheduleDropSun();
   }, random(2, 5) * 1000);
@@ -89,7 +89,6 @@ watchEffect(() => {
     width: 100%;
     height: 100%;
     border-radius: var(--border-radius);
-    overflow: hidden;
     position: relative;
 
     .bg-img {
