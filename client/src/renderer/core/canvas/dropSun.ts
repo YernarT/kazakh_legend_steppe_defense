@@ -1,3 +1,5 @@
+// Core
+import { collectSun } from "@/core/canvas/collectSun";
 // Assets
 import sunPng from "@/assets/images/sun.png";
 
@@ -24,15 +26,20 @@ export function dropSun({ ctx, x, y }: I_PutPlantOptions) {
   left: ${x}px;
   z-index: 50;
   animation: dropSun 10s linear forwards;
-
+  
   width: 60px;
   height: 57px;
   object-fit: cover;
   filter: drop-shadow(0 0 4px rgba(255, 247, 0, 0.8));
+  transition: var(--transition);
+  pointer-events: auto;
   `;
 
   sunImage.onload = () => {
     ctx.canvas.parentElement?.appendChild(sunImage);
+  };
+  sunImage.onclick = () => {
+    collectSun(sunImage);
   };
   sunImage.onanimationend = () => {
     // TODO: 阳光落地了，还未被收集。3 秒后移除阳光。
